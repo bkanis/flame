@@ -88,9 +88,9 @@ const useDocker = async (apps) => {
     for (const service of services) {
       let labels = service.Spec.Labels;
       
-      if (!('flame.name' in labels)) {
-      labels['flame.name'] = service.Spec.Name;
-      }
+      // if (!('flame.name' in labels)) {
+      // labels['flame.name'] = service.Spec.Name;
+      // }
       
       labels['flame.type'] = 'application';
       
