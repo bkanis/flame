@@ -87,9 +87,13 @@ const useDocker = async (apps) => {
     services = containers_swarm.data;
     for (const service of services) {
       let labels = service.Spec.Labels;
-
+      
+      if (!('flame.name' in labels)) {
       labels['flame.name'] = service.Spec.Name;
+      }
+      
       labels['flame.type'] = 'application';
+      
       if (!('flame.url' in labels)) {
         for (const label of Object.keys(labels)) {
           if (/^traefik.*.frontend.rule/.test(label)) {
