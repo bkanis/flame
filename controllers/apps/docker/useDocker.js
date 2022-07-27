@@ -37,7 +37,7 @@ const useDocker = async (apps) => {
           name: names[i] || names[0],
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
-          description: descriptions[i] || descriptions[0],
+          description: descriptions[i] || service.Spec.Name,
         });
       }
     }
