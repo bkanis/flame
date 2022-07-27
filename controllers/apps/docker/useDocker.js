@@ -27,8 +27,6 @@ const useDocker = async (apps) => {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
         let icons = '';
-        let isPublic = null;
-        const description = labels['flame.description'].split(';');
 
         if ('flame.icon' in labels) {
           icons = labels['flame.icon'].split(';');
@@ -38,8 +36,6 @@ const useDocker = async (apps) => {
           name: names[i] || names[0],
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
-          isPublic: isPublic[i] || null,
-          description: description[i] || description[0],
         });
       }
     }
@@ -92,9 +88,9 @@ const useDocker = async (apps) => {
     for (const service of services) {
       let labels = service.Spec.Labels;
       
-      // if (!('flame.name' in labels)) {
-      // labels['flame.name'] = service.Spec.Name;
-      // }
+      if (!('flame.name' in labels)) {
+      labels['flame.name'] = service.Spec.Name;
+      }
       
       labels['flame.type'] = 'application';
       
