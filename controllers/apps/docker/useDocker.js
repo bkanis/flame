@@ -127,6 +127,8 @@ const useDocker = async (apps) => {
           }
         }
       }
+
+      console.log("Labels: " + labels);
       addApp(dockerApps, labels);
     }
   }
