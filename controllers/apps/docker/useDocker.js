@@ -26,8 +26,7 @@ const useDocker = async (apps) => {
       for (let i = 0; i < labels['flame.name'].split(';').length; i++) {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
-        const description = labels['flame.description'];
-        console.log("Description: " + description);
+        const descriptions = labels['flame.description'];
         let icons = '';
 
         if ('flame.icon' in labels) {
@@ -38,7 +37,7 @@ const useDocker = async (apps) => {
           name: names[i] || names[0],
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
-          description: description[i] || description[0],
+          description: descriptions[i] || descriptions[0],
         });
       }
     }
@@ -128,7 +127,7 @@ const useDocker = async (apps) => {
         }
       }
 
-      console.log("Labels: " + labels);
+      console.log("Labels: " + labels[1]);
       addApp(dockerApps, labels);
     }
   }
