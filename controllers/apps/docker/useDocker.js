@@ -26,7 +26,8 @@ const useDocker = async (apps) => {
       for (let i = 0; i < labels['flame.name'].split(';').length; i++) {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
-        //const descriptions = labels['flame.description'].split(';');
+        const descriptions = labels['flame.description'].split(';');
+        const visibility = labels['flame.visible'].split(';');
         let icons = '';
 
         if ('flame.icon' in labels) {
@@ -37,7 +38,8 @@ const useDocker = async (apps) => {
           name: names[i] || names[0],
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
-          //description: descriptions[i] || service.Spec.Name,
+          description: descriptions[i] || names[i],
+          visibility: visibility[i] || 'true',
         });
       }
     }
@@ -145,6 +147,8 @@ const useDocker = async (apps) => {
         console.log(container)
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
+        labels['flame.visibility'] = 'false';
+        labels['flame.description'] = container.Names[0];
       // Traefik labels for URL configuration
         if (!('flame.url' in labels)) {
           for (const label of Object.keys(labels)) {
@@ -200,19 +204,25 @@ const useDocker = async (apps) => {
           name: item.name,
           url: item.url,
           isPinned: true,
+          isPublic: item.visibility,
+          description: item.description,
         });
       } else {
         await app.update({
           ...item,
           isPinned: true,
+          isPublic: item.visibility,
+          description: item.description,
         });
       }
     } else {
       // else create new app
-      await App.create({
+      await App.create({description
         ...item,
         icon: item.icon === 'custom' ? 'docker' : item.icon,
         isPinned: true,
+        isPublic: item.visibility,
+        description: item.description,
       });
     }
   }
