@@ -161,7 +161,7 @@ const useDocker = async (apps) => {
       if(!('com.docker.stack.namespace' in labels)){
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
-        labels['flame.visible'] = visibility;
+        labels['flame.visible'] = false;
         labels['flame.description'] = container.Names[0];
       // Traefik labels for URL configuration
         if (!('flame.url' in labels)) {
