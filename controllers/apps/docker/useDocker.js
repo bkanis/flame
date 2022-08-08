@@ -217,7 +217,7 @@ const useDocker = async (apps) => {
       }
     } else {
       // else create new app
-      await App.create({description
+      await App.create({
         ...item,
         icon: item.icon === 'custom' ? 'docker' : item.icon,
         isPinned: true,
