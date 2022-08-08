@@ -101,6 +101,14 @@ const useDocker = async (apps) => {
       // if (!('flame.name' in labels)) {
       // labels['flame.name'] = service.Spec.Name;
       // }
+
+      if (!('flame.visibility' in labels)) {
+      labels['flame.visibility'] = false;
+      }
+
+      if (!('flame.descriptiion' in labels)) {
+      labels['flame.description'] = service.Spec.Name;
+      }
       
       labels['flame.type'] = 'application';
       
@@ -153,7 +161,7 @@ const useDocker = async (apps) => {
         console.log(container)
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
-        labels['flame.visibility'] = 'false';
+        labels['flame.visibility'] = false;
         labels['flame.description'] = container.Names[0];
       // Traefik labels for URL configuration
         if (!('flame.url' in labels)) {
