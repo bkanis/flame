@@ -45,7 +45,7 @@ const useDocker = async (apps) => {
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
           description: description[i] || names[i],
-          visibility: visibility[i] || 'true',
+          visibility: visibility[i] || 1,
         });
       }
     }
@@ -103,13 +103,13 @@ const useDocker = async (apps) => {
       // }
 
       if (!('flame.visibility' in labels)) {
-        labels['flame.visibility'] = '1';
+        labels['flame.visibility'] = 1;
       }
-      else if (labels['flame.visibility'] = 'true') {
-        labels['flame.visibility'] = '0';
+      else if (labels['flame.visibility'] = "true") {
+        labels['flame.visibility'] = 0;
       }
-      else if (labels['flame.visibility'] = 'false') {
-        labels['flame.visibility'] = '1';
+      else if (labels['flame.visibility'] = "false") {
+        labels['flame.visibility'] = 1;
       }
 
       if (!('flame.description' in labels)) {
@@ -167,7 +167,7 @@ const useDocker = async (apps) => {
         console.log(container);
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
-        labels['flame.visibility'] = '1';
+        labels['flame.visibility'] = 1;
         labels['flame.description'] = container.Names[0];
       // Traefik labels for URL configuration
         if (!('flame.url' in labels)) {
