@@ -34,7 +34,7 @@ const useDocker = async (apps) => {
         }
 
         if ('flame.visibility' in labels) {
-          visibility = (labels['flame.visibility'] === 'true');
+          visibility = + (labels['flame.visibility']);
         }
 
         if ('flame.icon' in labels) {
