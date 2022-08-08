@@ -37,8 +37,8 @@ const useDocker = async (apps) => {
         } else {
           visibility = 0;
         }
-        logger.log(`Label : ` + labels['flame.visible']);
-        logger.log(`item.visibility (set) : ` + visibility, 'ERROR');
+        logger.log(`Label : ` +  labels['flame.visible']);
+        logger.log(`item.visibility (set) : ` + +visibility, 'ERROR');
 
         if ('flame.icon' in labels) {
           icons = labels['flame.icon'].split(';');
@@ -165,7 +165,6 @@ const useDocker = async (apps) => {
     for (const container of containers) {
       let labels = container.Labels;
       if(!('com.docker.stack.namespace' in labels)){
-        console.log(container);
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
         labels['flame.visible'] = visibility;
@@ -216,7 +215,7 @@ const useDocker = async (apps) => {
     if (apps.some((app) => app.name === item.name)) {
       const app = apps.find((a) => a.name === item.name);
       
-      logger.log(`item.visibility : ` + item.visibility, 'ERROR');
+      logger.log(`item.visibility : ` + +item.visibility, 'ERROR');
       
       if (
         item.icon === 'custom' ||
@@ -227,14 +226,14 @@ const useDocker = async (apps) => {
           name: item.name,
           url: item.url,
           isPinned: true,
-          isPublic: item.visibility,
+          isPublic: +item.visibility,
           description: item.description,
         });
       } else {
         await app.update({
           ...item,
           isPinned: true,
-          isPublic: item.visibility,
+          isPublic: +item.visibility,
           description: item.description,
         });
       }
@@ -244,7 +243,7 @@ const useDocker = async (apps) => {
         ...item,
         icon: item.icon === 'custom' ? 'docker' : item.icon,
         isPinned: true,
-        isPublic: item.visibility,
+        isPublic: +item.visibility,
         description: item.description,
       });
     }
