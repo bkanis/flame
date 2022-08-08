@@ -33,7 +33,7 @@ const useDocker = async (apps) => {
         }
 
         if ('flame.visibility' in labels) {
-          visibility = + (labels['flame.visibility']);
+          visibility = + labels['flame.visibility'];
           logger.log(`item.visibility (set) : ` + visibility, 'ERROR');
         }
 
