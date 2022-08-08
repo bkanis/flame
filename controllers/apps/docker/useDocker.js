@@ -103,7 +103,7 @@ const useDocker = async (apps) => {
       // }
 
       if (!('flame.visibility' in labels)) {
-      labels['flame.visibility'] = false;
+      labels['flame.visibility'] = 'false';
       }
 
       if (!('flame.description' in labels)) {
@@ -161,7 +161,7 @@ const useDocker = async (apps) => {
         console.log(container);
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
-        labels['flame.visibility'] = false;
+        labels['flame.visibility'] = 'false';
         labels['flame.description'] = container.Names[0];
       // Traefik labels for URL configuration
         if (!('flame.url' in labels)) {
