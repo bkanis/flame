@@ -46,7 +46,7 @@ const useDocker = async (apps) => {
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
           description: description[i] || names[i],
-          visibility: visibility[i] || 1,
+          visibility: visibility[i] || 0,
         });
       }
     }
@@ -104,7 +104,7 @@ const useDocker = async (apps) => {
       // }
 
       if (!('flame.visibility' in labels)) {
-        labels['flame.visibility'] = 1;
+        labels['flame.visibility'] = 0;
       }
 
       if (!('flame.description' in labels)) {
