@@ -33,7 +33,7 @@ const useDocker = async (apps) => {
         }
 
         if ('flame.visible' in labels) {
-          visibility = + labels['flame.visible']
+          visibility = + labels['flame.visible'].split(';');
         } else {
           visibility = 0;
         }
@@ -108,9 +108,6 @@ const useDocker = async (apps) => {
 
       if (!('flame.visible' in labels)) {
         labels['flame.visible'] = 0;
-      }
-      else {
-        labels['flame.visible'] = (+ labels['flame.visible'])
       }
 
       if (!('flame.description' in labels)) {
@@ -215,7 +212,7 @@ const useDocker = async (apps) => {
     if (apps.some((app) => app.name === item.name)) {
       const app = apps.find((a) => a.name === item.name);
       
-      logger.log(`item.visibility : ` + +item.visibility, 'ERROR');
+      logger.log(`item.visibility : ` + item.visibility, 'ERROR');
       
       if (
         item.icon === 'custom' ||
@@ -226,14 +223,14 @@ const useDocker = async (apps) => {
           name: item.name,
           url: item.url,
           isPinned: true,
-          isPublic: +item.visibility,
+          isPublic: item.visibility,
           description: item.description,
         });
       } else {
         await app.update({
           ...item,
           isPinned: true,
-          isPublic: +item.visibility,
+          isPublic: item.visibility,
           description: item.description,
         });
       }
@@ -243,7 +240,7 @@ const useDocker = async (apps) => {
         ...item,
         icon: item.icon === 'custom' ? 'docker' : item.icon,
         isPinned: true,
-        isPublic: +item.visibility,
+        isPublic: item.visibility,
         description: item.description,
       });
     }
