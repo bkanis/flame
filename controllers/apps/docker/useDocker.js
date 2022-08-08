@@ -106,7 +106,7 @@ const useDocker = async (apps) => {
       labels['flame.visibility'] = false;
       }
 
-      if (!('flame.descriptiion' in labels)) {
+      if (!('flame.description' in labels)) {
       labels['flame.description'] = service.Spec.Name;
       }
       
@@ -158,7 +158,7 @@ const useDocker = async (apps) => {
     for (const container of containers) {
       let labels = container.Labels;
       if(!('com.docker.stack.namespace' in labels)){
-        console.log(container)
+        console.log(container);
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
         labels['flame.visibility'] = false;
