@@ -214,7 +214,9 @@ const useDocker = async (apps) => {
     // If app already exists, update it
     if (apps.some((app) => app.name === item.name)) {
       const app = apps.find((a) => a.name === item.name);
-
+      
+      logger.log(`item.visibility : ` + item.visibility, 'ERROR');
+      
       if (
         item.icon === 'custom' ||
         (item.icon === 'docker' && app.icon != 'docker')
