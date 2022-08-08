@@ -27,7 +27,6 @@ const useDocker = async (apps) => {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
         let icons = '';
-        let visibility = 0;
 
         if ('flame.description' in labels) {
           description = labels['flame.description'].split(';');
@@ -35,6 +34,7 @@ const useDocker = async (apps) => {
 
         if ('flame.visibility' in labels) {
           visibility = + (labels['flame.visibility']);
+          logger.log(`item.visibility (set) : ` + visibility, 'ERROR');
         }
 
         if ('flame.icon' in labels) {
@@ -105,6 +105,9 @@ const useDocker = async (apps) => {
 
       if (!('flame.visibility' in labels)) {
         labels['flame.visibility'] = 0;
+      }
+      else {
+        labels['flame.visibility'] = + labels['flame.visibility']
       }
 
       if (!('flame.description' in labels)) {
