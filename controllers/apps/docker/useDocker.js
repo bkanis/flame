@@ -27,18 +27,15 @@ const useDocker = async (apps) => {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
         let icons = '';
+        let visibility = false;
 
         if ('flame.description' in labels) {
           description = labels['flame.description'].split(';');
         }
 
         if ('flame.visible' in labels) {
-          visibility = + labels['flame.visible'].split(';');
-        } else {
-          visibility = 0;
+          visibility = labels['flame.visible'];
         }
-        logger.log(`Label : ` +  labels['flame.visible']);
-        logger.log(`item.visibility (set) : ` + +visibility, 'ERROR');
 
         if ('flame.icon' in labels) {
           icons = labels['flame.icon'].split(';');
@@ -107,7 +104,7 @@ const useDocker = async (apps) => {
       // }
 
       if (!('flame.visible' in labels)) {
-        labels['flame.visible'] = 0;
+        labels['flame.visible'] = false;
       }
 
       if (!('flame.description' in labels)) {
