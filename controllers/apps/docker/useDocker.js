@@ -29,7 +29,7 @@ const useDocker = async (apps) => {
         let icons = '';
 
         if ('flame.description' in labels) {
-          descriptions = labels['flame.description'].split(';');
+          description = labels['flame.description'].split(';');
         }
 
         if ('flame.visibility' in labels) {
@@ -44,7 +44,7 @@ const useDocker = async (apps) => {
           name: names[i] || names[0],
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
-          description: descriptions[i] || names[i],
+          description: description[i] || names[i],
           visibility: visibility[i] || 'true',
         });
       }
