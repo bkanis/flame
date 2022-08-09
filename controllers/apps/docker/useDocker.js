@@ -36,7 +36,7 @@ const useDocker = async (apps) => {
           isPublic = labels['flame.visible'];
         }
 
-        logger.log(`Pre : Item: "++ " visible: `+ labels['flame.visible'] + " | isPublic: " + isPublic, 'ERROR');
+        logger.log(`Pre : Item: "++ " visible: `+ labels['flame.visible'] + " | isPublic: " + +isPublic, 'ERROR');
         
         if ('flame.icon' in labels) {
           icons = labels['flame.icon'].split(';');
@@ -47,7 +47,7 @@ const useDocker = async (apps) => {
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
           description: description[i] || names[i],
-          isPublic: isPublic[i] || isPublic[0],
+          isPublic: +isPublic[i] || +isPublic[0],
         });
       }
     }
