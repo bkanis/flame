@@ -47,7 +47,7 @@ const useDocker = async (apps) => {
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
           description: description[i] || names[i],
-          visibility: visibility[i] || visibility[0],
+          isPublic: visibility[i] || visibility[0],
         });
       }
     }
@@ -212,6 +212,7 @@ const useDocker = async (apps) => {
       
       logger.log(`item: `+item.name+` > item.visibility : ` + item.visibility, 'ERROR');
       logger.log(`CONVERTED-item: `+item.name+` > item.visibility : ` + +item.visibility, 'ERROR');
+
       if (
         item.icon === 'custom' ||
         (item.icon === 'docker' && app.icon != 'docker')
