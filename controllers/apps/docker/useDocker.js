@@ -27,7 +27,7 @@ const useDocker = async (apps) => {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
         let icons = '';
-        let visibility = false;
+        let visibility = 1;
 
         if ('flame.description' in labels) {
           description = labels['flame.description'].split(';');
@@ -103,10 +103,6 @@ const useDocker = async (apps) => {
       // if (!('flame.name' in labels)) {
       // labels['flame.name'] = service.Spec.Name;
       // }
-
-      if (!('flame.visible' in labels)) {
-        labels['flame.visible'] = false;
-      }
 
       if (!('flame.description' in labels)) {
       labels['flame.description'] = service.Spec.Name;
@@ -211,7 +207,6 @@ const useDocker = async (apps) => {
       const app = apps.find((a) => a.name === item.name);
       
       logger.log(`item: `+item.name+` > item.visibility : ` + item.visibility, 'ERROR');
-      logger.log(`CONVERTED-item: `+item.name+` > item.visibility : ` + +item.visibility, 'ERROR');
 
       if (
         item.icon === 'custom' ||
