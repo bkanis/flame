@@ -32,7 +32,7 @@ const useDocker = async (apps) => {
         if ('flame.description' in labels) {
           description = labels['flame.description'].split(';');
         }
-        logger.log(`visible: `+ labels['flame.visible'] );
+        logger.log(`visible: `+ labels['flame.visible'], 'ERROR');
         if (labels['flame.visible'] = "false") {
           visibility = 0;
         }
