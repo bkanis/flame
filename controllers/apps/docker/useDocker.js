@@ -47,7 +47,7 @@ const useDocker = async (apps) => {
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
           description: description[i] || names[i],
-          isPublic: visibility[i] || visibility[0],
+          isPublic: +visibility[i] || +visibility[0],
         });
       }
     }
