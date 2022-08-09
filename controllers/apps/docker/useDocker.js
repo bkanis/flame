@@ -204,7 +204,7 @@ const useDocker = async (apps) => {
       const app = apps.find((a) => a.name === item.name);
       logger.log(`INBOUND: item: `+item.name+` > item.isPublic : ` + item.isPublic, 'ERROR');
       
-      if (item.isPublic) {
+      if (item.isPublic === 't') {
         item.isPublic=1
       } else {
         item.isPublic=0
