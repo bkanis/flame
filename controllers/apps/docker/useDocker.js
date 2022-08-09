@@ -27,16 +27,17 @@ const useDocker = async (apps) => {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
         let icons = '';
-        let visibility = 1;
+        let isPublic = 1;
 
         if ('flame.description' in labels) {
           description = labels['flame.description'].split(';');
         }
-        logger.log(`visible: `+ labels['flame.visible'], 'ERROR');
+        
         if (labels['flame.visible'] = "false") {
-          visibility = 0;
+          isPublic = 0;
         }
-
+        logger.log(`visible: `+ labels['flame.visible'] + " isPublic:" + isPublic, 'ERROR');
+        
         if ('flame.icon' in labels) {
           icons = labels['flame.icon'].split(';');
         }
@@ -46,7 +47,7 @@ const useDocker = async (apps) => {
           url: urls[i] || urls[0],
           icon: icons[i] || 'docker',
           description: description[i] || names[i],
-          isPublic: visibility[i] || visibility[0],
+          isPublic: isPublic[i] || isPublic[0],
         });
       }
     }
@@ -205,7 +206,7 @@ const useDocker = async (apps) => {
     if (apps.some((app) => app.name === item.name)) {
       const app = apps.find((a) => a.name === item.name);
       
-      logger.log(`item: `+item.name+` > item.visibility : ` + item.visibility, 'ERROR');
+      logger.log(`item: `+item.name+` > item.isPublic : ` + item.isPublic, 'ERROR');
 
       if (
         item.icon === 'custom' ||
@@ -216,14 +217,14 @@ const useDocker = async (apps) => {
           name: item.name,
           url: item.url,
           isPinned: true,
-          isPublic: item.visibility,
+          isPublic: item.isPublic,
           description: item.description,
         });
       } else {
         await app.update({
           ...item,
           isPinned: true,
-          isPublic: item.visibility,
+          isPublic: item.isPublic,
           description: item.description,
         });
       }
@@ -233,7 +234,7 @@ const useDocker = async (apps) => {
         ...item,
         icon: item.icon === 'custom' ? 'docker' : item.icon,
         isPinned: true,
-        isPublic: item.visibility,
+        isPublic: item.isPublic,
         description: item.description,
       });
     }
