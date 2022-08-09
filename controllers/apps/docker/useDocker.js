@@ -27,16 +27,16 @@ const useDocker = async (apps) => {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
         let icons = '';
-        let isPublic = 1;
+        let isPublic = 0;
 
         if ('flame.description' in labels) {
           description = labels['flame.description'].split(';');
         }
         
-        if (labels['flame.visible'] = "false") {
-          isPublic = 0;
+        if (labels['flame.visible'] = "true") {
+          isPublic = 1;
         }
-        logger.log(`visible: `+ labels['flame.visible'] + " isPublic:" + isPublic, 'ERROR');
+        logger.log(`visible: `+ labels['flame.visible'] + " | isPublic: " + isPublic, 'ERROR');
         
         if ('flame.icon' in labels) {
           icons = labels['flame.icon'].split(';');
@@ -158,7 +158,6 @@ const useDocker = async (apps) => {
       if(!('com.docker.stack.namespace' in labels)){
         labels['flame.name'] = container.Names[0];
         labels['flame.type'] = 'application';
-        labels['flame.visible'] = false;
         labels['flame.description'] = container.Names[0];
       // Traefik labels for URL configuration
         if (!('flame.url' in labels)) {
