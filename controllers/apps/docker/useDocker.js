@@ -202,16 +202,15 @@ const useDocker = async (apps) => {
     // If app already exists, update it
     if (apps.some((app) => app.name === item.name)) {
       const app = apps.find((a) => a.name === item.name);
+      logger.log(`INBOUND: item: `+item.name+` > item.isPublic : ` + item.isPublic, 'ERROR');
       
-
       if (item.isPublic) {
         item.isPublic=1
       } else {
         item.isPublic=0
       }
 
-
-      logger.log(`item: `+item.name+` > item.isPublic : ` + item.isPublic, 'ERROR');
+      logger.log(`OUTBOUND: item: `+item.name+` > item.isPublic : ` + item.isPublic, 'ERROR');
 
       if (
         item.icon === 'custom' ||
