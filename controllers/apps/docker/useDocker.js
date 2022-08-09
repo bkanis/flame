@@ -27,16 +27,16 @@ const useDocker = async (apps) => {
         const names = labels['flame.name'].split(';');
         const urls = labels['flame.url'].split(';');
         let icons = '';
-        let isPublic = 0;
 
         if ('flame.description' in labels) {
           description = labels['flame.description'].split(';');
         }
         
-        if (labels['flame.visible'] = "true") {
-          isPublic = 1;
+        if ('flame.visible' in labels) {
+          isPublic = labels['flame.visible'];
         }
-        logger.log(`visible: `+ labels['flame.visible'] + " | isPublic: " + isPublic, 'ERROR');
+
+        logger.log(`Pre : Item: "++ " visible: `+ labels['flame.visible'] + " | isPublic: " + isPublic, 'ERROR');
         
         if ('flame.icon' in labels) {
           icons = labels['flame.icon'].split(';');
