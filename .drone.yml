@@ -14,7 +14,7 @@ steps:
   settings:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/bkanis/flame
-    dockerfile: docker/Dockerfile
+    dockerfile: .docker/Dockerfile.multiarch
     auto_tag: "true"
     auto_tag_suffix: linux-amd64
     tags: latest
@@ -41,7 +41,7 @@ steps:
 #   settings:
 #     registry: gitea.kanis.dev
 #     repo: gitea.kanis.dev/bkanis/flame
-#     dockerfile: docker/Dockerfile.arm64
+#     dockerfile: .docker/Dockerfile.multiarch.arm64
 #     auto_tag: "true"
 #     auto_tag_suffix: linux-arm64
 #     username:
@@ -67,7 +67,7 @@ steps:
 #   settings:
 #     registry: gitea.kanis.dev
 #     repo: gitea.kanis.dev/bkanis/flame
-#     dockerfile: docker/Dockerfile.arm
+#     dockerfile: .docker/Dockerfile.multiarch.arm
 #     auto_tag: "true"
 #     auto_tag_suffix: linux-arm
 #     username:
