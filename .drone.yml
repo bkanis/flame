@@ -9,6 +9,7 @@ steps:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/bkanis/flame
     autotag: true 
+    dockerfile: .docker/Dockerfile
     tags: latest
     username:
       from_secret: gitea_username
