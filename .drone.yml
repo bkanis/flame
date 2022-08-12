@@ -16,7 +16,7 @@ steps:
     repo: gitea.kanis.dev/${DRONE_REPO}
     mirror: http://127.0.0.1:5000
     insecure: true
-    dockerfile: docker/Dockerfile
+    dockerfile: .docker/Dockerfile.multiarch
     tags: latest
     auto_tag: "true"
     auto_tag_suffix: linux-amd64
@@ -47,7 +47,7 @@ steps:
     repo: gitea.kanis.dev/${DRONE_REPO}
     mirror: http://127.0.0.1:5000
     insecure: true
-    dockerfile: docker/Dockerfile.arm64
+    dockerfile: .docker/Dockerfile.multiarch
     auto_tag: "true"
     auto_tag_suffix: linux-arm64
     failure: ignore
