@@ -15,7 +15,7 @@ steps:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/${DRONE_REPO}
     mirror: http://127.0.0.1:5000
-    dockerfile: .docker/Dockerfile.multiarch
+    dockerfile: docker/Dockerfile
     tags: latest
     auto_tag: "true"
     auto_tag_suffix: linux-amd64
@@ -27,32 +27,34 @@ steps:
     event:
     - push
     - tag
-# ---
-# kind: pipeline
-# type: docker
-# name: linux-arm64
+    - promote
+---
+kind: pipeline
+type: docker
+name: linux-arm64
 
-# platform:
-#   arch: arm64
-#   os: linux
+platform:
+  arch: arm64
+  os: linux
 
-# steps:
-# - name: publish
-#   image: plugins/docker
-#   settings:
-#     registry: gitea.kanis.dev
-#     repo: gitea.kanis.dev/${DRONE_REPO}
-#     dockerfile: .docker/Dockerfile.multiarch.arm64
-#     auto_tag: "true"
-#     auto_tag_suffix: linux-arm64
-#     username:
-#       from_secret: gitea_username
-#     password:
-#       from_secret: gitea_password
-#   when:
-#     event:
-#     - push
-#     - tag
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    registry: gitea.kanis.dev
+    repo: gitea.kanis.dev/${DRONE_REPO}
+    dockerfile: docker/Dockerfile.arm64
+    auto_tag: "true"
+    auto_tag_suffix: linux-arm64
+    username:
+      from_secret: gitea_username
+    password:
+      from_secret: gitea_password
+  when:
+    event:
+    - push
+    - tag
+    - promote
 # ---
 # kind: pipeline
 # type: docker
@@ -68,7 +70,7 @@ steps:
 #   settings:
 #     registry: gitea.kanis.dev
 #     repo: gitea.kanis.dev/${DRONE_REPO}
-#     dockerfile: .docker/Dockerfile.multiarch.arm
+#     dockerfile: docker/Dockerfile.arm
 #     auto_tag: "true"
 #     auto_tag_suffix: linux-arm
 #     username:
@@ -79,6 +81,7 @@ steps:
 #     event:
 #     - push
 #     - tag
+#     - promote
 # ---
 # kind: pipeline
 # type: docker
@@ -103,5 +106,5 @@ steps:
 
 # depends_on:
 # - linux-amd64
-# - linux-arm64
+# - linux-aarch64
 # - linux-arm
