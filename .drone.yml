@@ -15,9 +15,9 @@ steps:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/bkanis/flame
     dockerfile: .docker/Dockerfile.multiarch
+    tags: latest
     auto_tag: "true"
     auto_tag_suffix: linux-amd64
-    tags: latest
     username:
       from_secret: gitea_username
     password:
