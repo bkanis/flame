@@ -13,7 +13,7 @@ steps:
   image: plugins/docker
   settings:
     registry: gitea.kanis.dev
-    repo: gitea.kanis.dev/bkanis/flame
+    repo: gitea.kanis.dev/${DRONE_REPO}
     mirror: http://127.0.0.1:5000
     dockerfile: .docker/Dockerfile.multiarch
     tags: latest
@@ -41,7 +41,7 @@ steps:
 #   image: plugins/docker
 #   settings:
 #     registry: gitea.kanis.dev
-#     repo: gitea.kanis.dev/bkanis/flame
+#     repo: gitea.kanis.dev/${DRONE_REPO}
 #     dockerfile: .docker/Dockerfile.multiarch.arm64
 #     auto_tag: "true"
 #     auto_tag_suffix: linux-arm64
@@ -67,7 +67,7 @@ steps:
 #   image: plugins/docker
 #   settings:
 #     registry: gitea.kanis.dev
-#     repo: gitea.kanis.dev/bkanis/flame
+#     repo: gitea.kanis.dev/${DRONE_REPO}
 #     dockerfile: .docker/Dockerfile.multiarch.arm
 #     auto_tag: "true"
 #     auto_tag_suffix: linux-arm
