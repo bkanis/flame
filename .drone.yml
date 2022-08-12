@@ -14,6 +14,7 @@ steps:
   settings:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/bkanis/flame
+    mirror: http://127.0.0.1:5000
     dockerfile: .docker/Dockerfile.multiarch
     tags: latest
     auto_tag: "true"
