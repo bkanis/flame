@@ -15,6 +15,7 @@ steps:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/${DRONE_REPO}
     mirror: http://127.0.0.1:5000
+    insecure: true
     dockerfile: docker/Dockerfile
     tags: latest
     auto_tag: "true"
@@ -44,6 +45,8 @@ steps:
   settings:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/${DRONE_REPO}
+    mirror: http://127.0.0.1:5000
+    insecure: true
     dockerfile: docker/Dockerfile.arm64
     auto_tag: "true"
     auto_tag_suffix: linux-arm64
@@ -72,6 +75,8 @@ steps:
   settings:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/${DRONE_REPO}
+    mirror: http://127.0.0.1:5000
+    insecure: true
     dockerfile: docker/Dockerfile.arm
     auto_tag: "true"
     auto_tag_suffix: linux-arm
