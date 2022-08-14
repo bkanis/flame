@@ -11,6 +11,7 @@ platform:
 steps:
 - name: publish
   image: plugins/docker
+  pull: if-not-exists
   settings:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/${DRONE_REPO}
@@ -18,8 +19,7 @@ steps:
     insecure: true
     dockerfile:
       from_secret: docker_file
-    tags: latest
-    auto_tag: "true"
+    auto_tag: true
     auto_tag_suffix: linux-amd64
     failure: ignore
     username:
@@ -43,6 +43,7 @@ platform:
 steps:
 - name: publish
   image: plugins/docker
+  pull: if-not-exists
   settings:
     registry: gitea.kanis.dev
     repo: gitea.kanis.dev/${DRONE_REPO}
@@ -50,7 +51,7 @@ steps:
     insecure: true
     dockerfile:
       from_secret: docker_file_arm64
-    auto_tag: "true"
+    auto_tag: true
     auto_tag_suffix: linux-arm64
     failure: ignore
     username:
@@ -74,6 +75,7 @@ steps:
 # steps:
 # - name: publish
 #   image: plugins/docker
+#   pull: if-not-exists
 #   settings:
 #     registry: gitea.kanis.dev
 #     repo: gitea.kanis.dev/${DRONE_REPO}
@@ -81,7 +83,7 @@ steps:
 #     insecure: true
 #     dockerfile: docker/Dockerfile.arm
 #       from_secret: docker_file_arm64
-#     auto_tag: "true"
+#     auto_tag: true
 #     auto_tag_suffix: linux-arm
 #     failure: ignore
 #     username:
@@ -96,26 +98,68 @@ steps:
 # ---
 # kind: pipeline
 # type: docker
-# name: manifest
+# name: manifest-direct
+
+# services:
+#   - name: docker
+#     image: docker:dind
+#     volumes:
+#       - name: dockersock
+#         path: /var/run
 
 # steps:
-# - name: manifest
-#   image: plugins/manifest
-#   settings:
-#     auto_tag: "true"
-#     ignore_missing: "true"
-#     spec: manifest.tmpl
-#     username:
-#       from_secret: gitea_username
-#     password:
-#       from_secret: gitea_password
+#   - name: create and push manifest
+#     image: docker:dind
+#     pull: if-not-exists
+#     volumes:
+#       - name: dockersock
+#         path: /var/run
+#     commands:
+#       - docker manifest create --insecure gitea.kanis.dev/${DRONE_REPO}:latest gitea.kanis.dev/${DRONE_REPO}:linux-amd64 gitea.kanis.dev/${DRONE_REPO}:linux-arm64
+#       - docker manifest push --insecure gitea.kanis.dev/${DRONE_REPO}:latest
+
+# volumes:
+#   - name: dockersock
+#     temp: {}
 
 # trigger:
 #   event:
 #   - push
 #   - tag
+#   - promote
 
 # depends_on:
 # - linux-amd64
-# - linux-aarch64
+# - linux-arm64
+# # - linux-arm
+
+---
+kind: pipeline
+type: docker
+name: manifest-plugin
+
+steps:
+  - name: push to docker manifest
+    image: plugins/manifest
+    settings: 
+      username:
+        from_secret: gitea_username
+      password:
+        from_secret: gitea_password
+      target: "gitea.kanis.dev/${DRONE_REPO}:latest"
+      template: "gitea.kanis.dev/${DRONE_REPO}:OS-ARCH"
+      platforms:
+        - linux/amd64
+        - linux/arm64
+      ignore_missing: true
+
+trigger:
+  event:
+  - push
+  - tag
+  - promote
+
+depends_on:
+- linux-amd64
+- linux-arm64
 # - linux-arm
