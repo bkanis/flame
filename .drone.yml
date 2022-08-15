@@ -1,5 +1,4 @@
 ---
-
 kind: pipeline
 type: docker
 name: linux-amd64
@@ -31,6 +30,7 @@ steps:
     - push
     - tag
     - promote
+
 ---
 kind: pipeline
 type: docker
@@ -62,7 +62,8 @@ steps:
     event:
     - push
     - tag
-    - promote
+    - promote 
+
 # ---
 # kind: pipeline
 # type: docker
@@ -95,43 +96,6 @@ steps:
 #     - push
 #     - tag
 #     - promote
-# ---
-# kind: pipeline
-# type: docker
-# name: manifest-direct
-
-# services:
-#   - name: docker
-#     image: docker:dind
-#     volumes:
-#       - name: dockersock
-#         path: /var/run
-
-# steps:
-#   - name: create and push manifest
-#     image: docker:dind
-#     pull: if-not-exists
-#     volumes:
-#       - name: dockersock
-#         path: /var/run
-#     commands:
-#       - docker manifest create --insecure gitea.kanis.dev/${DRONE_REPO}:latest gitea.kanis.dev/${DRONE_REPO}:linux-amd64 gitea.kanis.dev/${DRONE_REPO}:linux-arm64
-#       - docker manifest push --insecure gitea.kanis.dev/${DRONE_REPO}:latest
-
-# volumes:
-#   - name: dockersock
-#     temp: {}
-
-# trigger:
-#   event:
-#   - push
-#   - tag
-#   - promote
-
-# depends_on:
-# - linux-amd64
-# - linux-arm64
-# # - linux-arm
 
 ---
 kind: pipeline
