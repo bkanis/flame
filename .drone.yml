@@ -12,9 +12,9 @@ steps:
   image: plugins/docker
   pull: if-not-exists
   settings:
-    registry: gitea.kanis.dev
-    repo: gitea.kanis.dev/${DRONE_REPO}
-    mirror: http://127.0.0.1:5000
+    registry: gitea_app:3000
+    repo: gitea_app:3000/${DRONE_REPO}
+    mirror: http://registry:5000
     insecure: true
     dockerfile:
       from_secret: docker_file
@@ -45,9 +45,9 @@ steps:
   image: plugins/docker
   pull: if-not-exists
   settings:
-    registry: gitea.kanis.dev
-    repo: gitea.kanis.dev/${DRONE_REPO}
-    mirror: http://127.0.0.1:5000
+    registry: gitea_app:3000
+    repo: gitea_app:3000/${DRONE_REPO}
+    mirror: http://registry:5000
     insecure: true
     dockerfile:
       from_secret: docker_file_arm64
@@ -78,9 +78,9 @@ steps:
 #   image: plugins/docker
 #   pull: if-not-exists
 #   settings:
-#     registry: gitea.kanis.dev
-#     repo: gitea.kanis.dev/${DRONE_REPO}
-#     mirror: http://127.0.0.1:5000
+#     registry: gitea_app:3000
+#     repo: gitea_app:3000/${DRONE_REPO}
+#     mirror: http://registry:5000
 #     insecure: true
 #     dockerfile: docker/Dockerfile.arm
 #       from_secret: docker_file_arm64
