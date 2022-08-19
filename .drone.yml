@@ -21,8 +21,7 @@ steps:
     auto_tag: true
     auto_tag_suffix: linux-amd64
     failure: ignore
-    username:
-      from_secret: gitea_username
+    username: bkanis
     password:
       from_secret: gitea_password
   when:
@@ -54,8 +53,7 @@ steps:
     auto_tag: true
     auto_tag_suffix: linux-arm64
     failure: ignore
-    username:
-      from_secret: gitea_username
+    username: bkanis
     password:
       from_secret: gitea_password
   when:
@@ -106,8 +104,7 @@ steps:
   - name: push to docker manifest
     image: plugins/manifest
     settings: 
-      username:
-        from_secret: gitea_username
+      username: bkanis
       password:
         from_secret: gitea_password
       target: "gitea.kanis.dev/${DRONE_REPO}:latest"
