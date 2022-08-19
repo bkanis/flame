@@ -20,7 +20,6 @@ steps:
       from_secret: docker_file
     auto_tag: true
     auto_tag_suffix: linux-amd64
-    failure: ignore
     username: bkanis
     password:
       from_secret: gitea_password
@@ -52,7 +51,6 @@ steps:
       from_secret: docker_file_arm64
     auto_tag: true
     auto_tag_suffix: linux-arm64
-    failure: skip
     username: bkanis
     password:
       from_secret: gitea_password
@@ -84,7 +82,7 @@ steps:
 #       from_secret: docker_file_arm64
 #     auto_tag: true
 #     auto_tag_suffix: linux-arm
-#     failure: ignore
+#     
 #     username:
 #       from_secret: gitea_username
 #     password:
