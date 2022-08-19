@@ -14,13 +14,15 @@ steps:
   settings:
     registry: gitea:3000
     repo: gitea:3000/${DRONE_REPO}
-    mirror: http://registry:5000
+    mirror: http://127.0.0.1:5000
     insecure: true
-    cache_from: gitea:3000/${DRONE_REPO}:latest
+    cache_from: gitea.kanis.dev/${DRONE_REPO}:latest
     dockerfile:
       from_secret: docker_file
     auto_tag: true
     auto_tag_suffix: linux-amd64
+    squash: true
+    compress: true
     username: bkanis
     password:
       from_secret: gitea_password
@@ -30,38 +32,6 @@ steps:
     - tag
     - promote
 
----
-kind: pipeline
-type: docker
-name: linux-arm64
-
-platform:
-  arch: arm64
-  os: linux
-
-steps:
-- name: publish
-  image: plugins/docker
-  pull: if-not-exists
-  settings:
-    registry: gitea.kanis.dev
-    repo: gitea.kanis.dev/${DRONE_REPO}
-    mirror: http://registry:5000
-    insecure: true
-    cache_from: gitea.kanis.dev/${DRONE_REPO}:latest
-    dockerfile:
-      from_secret: docker_file_arm64
-    auto_tag: true
-    auto_tag_suffix: linux-arm64
-    username: bkanis
-    password:
-      from_secret: gitea_password
-  when:
-    event:
-    - push
-    - tag
-    - promote
-    
 ---
 kind: pipeline
 type: docker
@@ -89,4 +59,3 @@ trigger:
 
 depends_on:
 - linux-amd64
-- linux-arm64
